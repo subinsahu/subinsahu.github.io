@@ -1,1 +1,975 @@
-<h1>My Website</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subin Sahu — Computational Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        oklch(99% 0.005 240);
+      --bg2:       oklch(96% 0.006 240);
+      --bg3:       oklch(93% 0.007 240);
+      --line:      oklch(88% 0.010 240);
+      --muted:     oklch(62% 0.014 240);
+      --text:      oklch(20% 0.016 240);
+      --text-dim:  oklch(40% 0.014 240);
+      --accent:    oklch(46% 0.16 192);
+      --accent2:   oklch(46% 0.16 270);
+      --nav-bg:    oklch(22% 0.025 240);
+      --nav-text:  oklch(90% 0.010 240);
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-head);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 3rem;
+      background: var(--nav-bg);
+      border-bottom: 1px solid oklch(30% 0.02 240);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: oklch(72% 0.18 192);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: oklch(70% 0.012 240);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: oklch(72% 0.18 192); }
+
+    /* ── SECTIONS WRAPPER ── */
+    main { position: relative; z-index: 1; }
+
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 7rem 2rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 8rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-titles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s forwards;
+    }
+
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      border: 1px solid var(--line);
+      background: var(--bg2);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-summary {
+      max-width: 580px;
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.65s forwards;
+    }
+
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 1.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn:hover { background: var(--accent); color: #fff; }
+
+    .btn-ghost {
+      border-color: var(--line);
+      color: var(--text-dim);
+    }
+
+    .btn-ghost:hover { border-color: var(--text-dim); background: transparent; color: var(--text); }
+
+    /* ── SECTION HEADER ── */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 2.5rem;
+      height: 2px;
+      background: var(--accent);
+      margin: 0.75rem 0 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about p {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      max-width: 640px;
+    }
+
+    #about p + p { margin-top: 1.2rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      background: var(--bg3);
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-left: 1px solid var(--line);
+      padding: 0 0 3rem 2rem;
+      position: relative;
+    }
+
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px oklch(46% 0.16 192 / 0.25);
+    }
+
+    .exp-item:last-child { padding-bottom: 0; }
+
+    .exp-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-org {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .exp-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .exp-role {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-location {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 0.18em;
+    }
+
+    /* ── PROJECTS ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 600px) { .project-grid { grid-template-columns: 1fr; } }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      border-color: oklch(46% 0.16 192 / 0.5);
+      transform: translateY(-2px);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-type {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.1rem;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      border-left: 1px solid var(--line);
+      padding: 0 0 2.25rem 2rem;
+      position: relative;
+    }
+
+    .pub-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 7px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+    }
+
+    .pub-item:last-child { padding-bottom: 0; }
+
+    .pub-thesis { margin-top: 1rem; padding-top: 0.5rem; }
+    .pub-thesis::before { background: var(--accent2); border-color: var(--accent2); }
+
+    .pub-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .pub-journal {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+
+    .pub-year {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .pub-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 0.25rem;
+    }
+
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
+
+    .pub-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pub-link {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .pub-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s;
+    }
+
+    .project-link:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--line);
+      background: var(--nav-bg);
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer > * {
+      max-width: 860px;
+    }
+
+    .footer-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: oklch(55% 0.012 240);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: oklch(60% 0.012 240);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: oklch(72% 0.18 192); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">ss://</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#projects">Projects</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-tag">Computational Scientist &amp; Software Developer</div>
+      <h1 class="hero-name">Subin<br /><span>Sahu</span></h1>
+      <div class="hero-titles">
+        <span class="pill">Scientific Software</span>
+        <span class="pill">Molecular Modeling</span>
+        <span class="pill">Drug Discovery</span>
+        <span class="pill">Data Science</span>
+      </div>
+      <p class="hero-summary">
+        Computational scientist specializing in structure-based drug design and molecular modeling,
+        with expertise in ligand docking, virtual screening, and hit identification.
+        Proven track record developing and validating algorithms for pose prediction
+        and conformer generation in drug discovery workflows.
+      </p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn">View Experience</a>
+        <a href="#projects" class="btn btn-ghost">Projects</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="reveal">
+        <div class="section-label">01 — About</div>
+        <h2 class="section-title">Background</h2>
+        <div class="divider"></div>
+        <p>
+          I'm a computational scientist with over a decade of experience bridging
+          the gap between fundamental research and production-grade scientific software.
+          My work spans molecular simulation, drug discovery tooling, and large-scale
+          computational modeling—with contributions at national labs, research universities,
+          and industry.
+        </p>
+        <p>
+          At OpenEye / Cadence Molecular Sciences, I led development of computer-aided
+          drug discovery tools including pose prediction (POSIT &amp; SZYBKI), conformer
+          generation (OMEGA), and virtual screening pipelines (ROCS &amp; EON).
+          I'm drawn to problems where rigorous science meets scalable engineering.
+        </p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="reveal">
+        <div class="section-label">02 — Skills</div>
+        <h2 class="section-title">Technical Expertise</h2>
+        <div class="divider"></div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-title">Modeling &amp; Simulation</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Molecular Dynamics</span>
+              <span class="skill-tag">Ligand Docking</span>
+              <span class="skill-tag">Virtual Screening</span>
+              <span class="skill-tag">Conformer Gen</span>
+              <span class="skill-tag">Coarse-Grain Models</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Software &amp; Tools</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">OpenEye Toolkit</span>
+              <span class="skill-tag">FRED</span>
+              <span class="skill-tag">HYBRID</span>
+              <span class="skill-tag">OMEGA</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Drug Discovery</div>
+            <div class="skill-tags">
+              <span class="skill-tag">POSIT</span>
+              <span class="skill-tag">SZYBKI</span>
+              <span class="skill-tag">ROCS</span>
+              <span class="skill-tag">EON</span>
+              <span class="skill-tag">Hit ID</span>
+              <span class="skill-tag">CADD</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Data &amp; Methods</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Bayesian Methods</span>
+              <span class="skill-tag">Sensitivity Analysis</span>
+              <span class="skill-tag">Benchmarking</span>
+              <span class="skill-tag">Uncertainty Quant</span>
+              <span class="skill-tag">NumPy / SciPy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="reveal">
+        <div class="section-label">03 — Experience</div>
+        <h2 class="section-title">Career History</h2>
+        <div class="divider"></div>
+        <div class="exp-list">
+
+          <div class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-org">OpenEye, Cadence Molecular Sciences</span>
+              <span class="exp-date">Sep 2022 – Nov 2025</span>
+            </div>
+            <div class="exp-role">Scientific Developer II</div>
+            <div class="exp-location">Santa Fe, New Mexico</div>
+            <ul class="exp-bullets">
+              <li>Developed computer-aided drug discovery tools including command-line applications, API libraries, and web applications for pose prediction (POSIT &amp; SZYBKI), conformer generation (OMEGA), and virtual screening (ROCS &amp; EON).</li>
+              <li>Implemented a Bayesian approach (Thompson sampling) to conformer generation, resulting in several-fold increase in speed.</li>
+              <li>Performed scientific validation of computational tools, including curation of benchmark sets, building packages for automated testing, model sensitivity analyses, uncertainty quantification, and mechanistic interpretation of results.</li>
+              <li>Collaborated with computational chemists, application scientists, and software engineers to refine models and guide R&amp;D decisions.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-org">University of Colorado Boulder</span>
+              <span class="exp-date">May 2020 – Jul 2022</span>
+            </div>
+            <div class="exp-role">Postdoctoral Researcher</div>
+            <div class="exp-location">Boulder, Colorado</div>
+            <ul class="exp-bullets">
+              <li>Developed Python packages for coarse-grain and atomistic computational models of lipid membranes.</li>
+              <li>Conducted large-scale molecular simulations to study structural stability and phase behavior in bilayer systems.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-org">NIST &amp; University of Maryland</span>
+              <span class="exp-date">Jun 2015 – May 2020</span>
+            </div>
+            <div class="exp-role">Postdoctoral Researcher &amp; Graduate Researcher</div>
+            <div class="exp-location">Gaithersburg, Maryland</div>
+            <ul class="exp-bullets">
+              <li>Modeled ion transport and selectivity in ion channels using large-scale numerical simulations and advanced computational sampling methods.</li>
+              <li>Developed computational models of nanofluidic devices in collaboration with experimental teams.</li>
+            </ul>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-org">Oregon State University</span>
+              <span class="exp-date">Sep 2011 – Jun 2015</span>
+            </div>
+            <div class="exp-role">Graduate Research Assistant</div>
+            <div class="exp-location">Corvallis, Oregon</div>
+            <ul class="exp-bullets">
+              <li>Developed a phenomenological lattice model of DNA to compute denaturation curves consistent with experimental data.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="reveal">
+        <div class="section-label">04 — Publications</div>
+        <h2 class="section-title">Peer-Reviewed Articles</h2>
+        <div class="divider"></div>
+        <div class="pub-list">
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">J. Phys. Chem. B</span>
+              <span class="pub-year">2022</span>
+            </div>
+            <div class="pub-title">Obtaining and characterizing stable bicontinuous cubic morphologies and their nanochannels in lyotropic liquid crystal membranes</div>
+            <div class="pub-authors">S. Sahu, N. Schwindt, B. Coscia &amp; M. Shirts</div>
+            <div class="pub-links">
+              <a href="https://pubs.acs.org/doi/10.1021/acs.jpcb.2c06119" target="_blank" class="pub-link">Journal</a>
+              <a href="https://doi.org/10.26434/chemrxiv-2022-77nw2" target="_blank" class="pub-link">ChemRxiv</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Entropy 22, 1326</span>
+              <span class="pub-year">2020</span>
+            </div>
+            <div class="pub-title">Diffusion limitations and translocation barriers in atomically thin biomimetic pores</div>
+            <div class="pub-authors">S. Sahu &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://www.mdpi.com/1099-4300/22/11/1326" target="_blank" class="pub-link">Journal</a>
+              <a href="https://drive.google.com/file/d/1L-4-Kug5cGxAUF81_Cl3GJNUWPoQ23nQ/view" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Science Advances 5, eaaw5478</span>
+              <span class="pub-year">2019</span>
+            </div>
+            <div class="pub-title">Optimal transport and colossal ionic mechano-conductance in graphene crown ether</div>
+            <div class="pub-authors">S. Sahu, J. Elenewski, C. Rohmann &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://advances.sciencemag.org/content/5/7/eaaw5478.abstract" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1907.07683" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/file/d/1StYz-jOPaCgGi6Qgcv5x6d5cWpDuJlGw/view" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Rev. Mod. Phys. 91, 021004</span>
+              <span class="pub-year">2019</span>
+            </div>
+            <div class="pub-title">Colloquium: Ionic phenomena in nanoscale pores through 2D materials</div>
+            <div class="pub-authors">S. Sahu &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.91.021004" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1809.05098" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/open?id=1sFVufB9kHrrvslkr5LGHK__fqV1QY5LA" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Phys. Rev. E 98, 012404</span>
+              <span class="pub-year">2018</span>
+            </div>
+            <div class="pub-title">Golden aspect ratio for ion transport simulation in nanopores</div>
+            <div class="pub-authors">S. Sahu &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.98.012404" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1711.00472" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/open?id=1hsZSvVGjR6uKm1LaY63Y1bfYEx-6eW0q" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Phys. Chem. Chem. Phys. 20, 4646</span>
+              <span class="pub-year">2018</span>
+            </div>
+            <div class="pub-title">Maxwell-Hall access resistance in graphene nanopores</div>
+            <div class="pub-authors">S. Sahu &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://dx.doi.org/10.1039/C7CP07924A" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1708.03327" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/open?id=1lzf74E88xfaVorgbMbsCAHbND0sLGW-h" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Nanoscale 9, 11424</span>
+              <span class="pub-year">2017</span>
+            </div>
+            <div class="pub-title">Ionic selectivity and filtration from fragmented dehydration in multilayer graphene nanopores</div>
+            <div class="pub-authors">S. Sahu &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="http://pubs.rsc.org/en/content/articlelanding/2017/nr/c7nr03838k" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1705.04538" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/open?id=1Ny-CTcNSIAJSqVzqNVPp0woTrAMfF6nL" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Nano Letters 17(2), 1034</span>
+              <span class="pub-year">2017</span>
+            </div>
+            <div class="pub-title">Enabling photoemission electron microscopy in liquids via graphene-capped microchannel arrays</div>
+            <div class="pub-authors">H. Guo, E. Strelcov, A. Yulaev, J. Wang, N. Appathurai, S. Urquhart, J. Vinson, S. Sahu, M. Zwolak &amp; A. Kolmakov</div>
+            <div class="pub-links">
+              <a href="http://pubs.acs.org/doi/abs/10.1021/acs.nanolett.6b04460" target="_blank" class="pub-link">Journal</a>
+              <a href="https://drive.google.com/open?id=1kl60E-l5rA9YNXTAaloybBjy7Fi8OSsG" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Nano Letters 17(8), 4719</span>
+              <span class="pub-year">2017</span>
+            </div>
+            <div class="pub-title">Dehydration as a Universal Mechanism for Ion Selectivity in Graphene and Other Atomically Thin Pores</div>
+            <div class="pub-authors">S. Sahu, M. Di Ventra &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="http://pubs.acs.org/doi/abs/10.1021/acs.nanolett.7b01399" target="_blank" class="pub-link">Journal</a>
+              <a href="https://arxiv.org/abs/1605.03134" target="_blank" class="pub-link">arXiv</a>
+              <a href="https://drive.google.com/open?id=19ORoXTosTeg6UjKj_3b1OpUqY5cEPLEC" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-meta">
+              <span class="pub-journal">Scientific Reports 5, 17506</span>
+              <span class="pub-year">2015</span>
+            </div>
+            <div class="pub-title">Crossover behavior of the thermal conductance and Kramers transition rate theory</div>
+            <div class="pub-authors">K. Velizhanin, S. Sahu, C. C. Chien, Y. Dubi &amp; M. Zwolak</div>
+            <div class="pub-links">
+              <a href="https://www.nature.com/articles/srep17506" target="_blank" class="pub-link">Journal</a>
+              <a href="https://drive.google.com/open?id=1eTb-2lV9EHVMl2iwYt_-xankdPmrqOXt" target="_blank" class="pub-link">PDF</a>
+            </div>
+          </div>
+
+          <div class="pub-item pub-thesis">
+            <div class="pub-meta">
+              <span class="pub-journal">PhD Thesis · Oregon State University</span>
+              <span class="pub-year">2015</span>
+            </div>
+            <div class="pub-title">Nonlinear behavior of thermal and ion transport at the nanoscale</div>
+            <div class="pub-authors">S. Sahu</div>
+            <div class="pub-links">
+              <a href="http://hdl.handle.net/1957/61622" target="_blank" class="pub-link">Repository</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="reveal">
+        <div class="section-label">05 — Projects</div>
+        <h2 class="section-title">Selected Work</h2>
+        <div class="divider"></div>
+        <div class="project-grid">
+
+          <div class="project-card">
+            <div class="project-type">Machine Learning · Drug Discovery</div>
+            <div class="project-title">Drug Solubility Prediction</div>
+            <div class="project-desc">
+              Built an end-to-end ML pipeline (RDKit, scikit-learn, Random Forest) to predict aqueous solubility of drug-like molecules; validated on an independent external dataset.
+            </div>
+            <div class="project-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">RDKit</span>
+              <span class="skill-tag">scikit-learn</span>
+              <span class="skill-tag">Random Forest</span>
+            </div>
+            <a href="https://github.com/subinsahu/ml-cadd" target="_blank" class="project-link">github.com/subinsahu/ml-cadd ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-type">Molecular Simulation · HPC</div>
+            <div class="project-title">Nano-structured Membrane Simulation &amp; Analysis</div>
+            <div class="project-desc">
+              Developed Python tools to construct and analyze bicontinuous cubic lipid membrane models via a 9-stage GROMACS simulation pipeline on HPC clusters.
+            </div>
+            <div class="project-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">GROMACS</span>
+              <span class="skill-tag">HPC</span>
+              <span class="skill-tag">Lipid Membranes</span>
+            </div>
+            <a href="https://github.com/subinsahu/BCC_membrane" target="_blank" class="project-link">github.com/subinsahu/BCC_membrane ↗</a>
+          </div>
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Subin Sahu © 2026</span>
+    <div class="footer-links">
+      <a href="/cdn-cgi/l/email-protection#11">Email</a>
+      <a href="https://github.com/" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+      <a href="https://scholar.google.com/" target="_blank">Scholar</a>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Intersection Observer for scroll reveals
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
